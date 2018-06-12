@@ -5,8 +5,8 @@
  */
 package br.edu.qi.gestaohc.controllers;
 
-import br.edu.qi.gestaohc.models.MlHorasComplementares;
-import br.edu.qi.gestaohc.objects.HorasComplementares;
+import br.edu.qi.gestaohc.dal.DaoHorasComplementares;
+import br.edu.qi.gestaohc.model.HorasComplementares;
 import br.edu.qi.gestaohc.views.VwHorasComplementares;
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ClHorasComplementares {
 
     protected HorasComplementares hc;
-    protected MlHorasComplementares mlHc;
+    protected DaoHorasComplementares mlHc;
     protected VwHorasComplementares vwHc;
 
     public ClHorasComplementares() {
@@ -29,11 +29,11 @@ public class ClHorasComplementares {
         this.hc = hc;
     }
 
-    public MlHorasComplementares getMlHc() {
+    public DaoHorasComplementares getMlHc() {
         return mlHc;
     }
 
-    public void setMlHc(MlHorasComplementares mlHc) {
+    public void setMlHc(DaoHorasComplementares mlHc) {
         this.mlHc = mlHc;
     }
 

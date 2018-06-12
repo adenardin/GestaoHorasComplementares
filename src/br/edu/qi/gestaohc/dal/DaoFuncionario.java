@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.qi.gestaohc.models;
+package br.edu.qi.gestaohc.dal;
 
-import br.edu.qi.gestaohc.objects.Funcionario;
+import br.edu.qi.gestaohc.model.Funcionario;
 import java.util.ArrayList;
 
 /*(NULL)*/
-public class MlFuncionario {
+public class DaoFuncionario {
 
     protected Funcionario funcionario;
 
-    public MlFuncionario() {
+    public DaoFuncionario() {
 
     }
 

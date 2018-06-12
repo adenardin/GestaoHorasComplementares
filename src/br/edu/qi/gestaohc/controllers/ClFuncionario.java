@@ -5,8 +5,8 @@
  */
 package br.edu.qi.gestaohc.controllers;
 
-import br.edu.qi.gestaohc.models.MlFuncionario;
-import br.edu.qi.gestaohc.objects.Funcionario;
+import br.edu.qi.gestaohc.dal.DaoFuncionario;
+import br.edu.qi.gestaohc.model.Funcionario;
 import br.edu.qi.gestaohc.views.VwFuncionarios;
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ClFuncionario {
 
     protected Funcionario funcionario;
-    protected MlFuncionario mlFuncionario;
+    protected DaoFuncionario mlFuncionario;
     protected VwFuncionarios vwFuncionarios;
 
     public ClFuncionario() {
@@ -29,11 +29,11 @@ public class ClFuncionario {
         this.funcionario = funcionario;
     }
 
-    public MlFuncionario getMlFuncionario() {
+    public DaoFuncionario getMlFuncionario() {
         return mlFuncionario;
     }
 
-    public void setMlFuncionario(MlFuncionario mlFuncionario) {
+    public void setMlFuncionario(DaoFuncionario mlFuncionario) {
         this.mlFuncionario = mlFuncionario;
     }
 

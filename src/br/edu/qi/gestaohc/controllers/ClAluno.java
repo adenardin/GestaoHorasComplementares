@@ -5,16 +5,17 @@
  */
 package br.edu.qi.gestaohc.controllers;
 
-import br.edu.qi.gestaohc.models.MlAluno;
-import br.edu.qi.gestaohc.objects.Aluno;
+import br.edu.qi.gestaohc.dal.DaoAluno;
+import br.edu.qi.gestaohc.model.Aluno;
 import br.edu.qi.gestaohc.views.VwAlunos;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /*Controlador para Aluno*/
 public class ClAluno {
 
     protected Aluno aluno;
-    protected MlAluno mlAluno;
+    protected DaoAluno mlAluno;
     protected VwAlunos vwAluno;
 
     public ClAluno() {
@@ -29,11 +30,11 @@ public class ClAluno {
         this.aluno = aluno;
     }
 
-    public MlAluno getMlAluno() {
+    public DaoAluno getMlAluno() {
         return mlAluno;
     }
 
-    public void setMlAluno(MlAluno mlAluno) {
+    public void setMlAluno(DaoAluno mlAluno) {
         this.mlAluno = mlAluno;
     }
 
@@ -45,9 +46,9 @@ public class ClAluno {
         this.vwAluno = vwAluno;
     }
 
-    public void gravarAluno(Aluno aluno) {
-        mlAluno = new MlAluno();
-        mlAluno.inserirAluno(aluno);
+    public void gravarAluno(Aluno aluno) throws SQLException {
+        DaoAluno da = new DaoAluno();
+        da.inserirAluno(aluno);
     }
 
     public void editarAluno(Aluno aluno) {

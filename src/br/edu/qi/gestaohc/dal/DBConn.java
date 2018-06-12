@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.qi.gestaohc.models;
+package br.edu.qi.gestaohc.dal;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import com.mysql.jdbc.Driver;
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,20 +18,21 @@ import java.sql.SQLException;
  * @author ALUNOS
  */
 public class DBConn {
-    
-    DBConn dbconn = null;
+
     Statement stmt = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
-    Connection conn = null;
-    
+    Connection conn = getConnection();
+
     public static final String URL = "jdbc:mysql://localhost:3306/GestaoHC";
     public static final String USER = "root";
-    public static final String PASS = "proc2008";
+    public static final String PASS = "";
+
     /**
      * Get a connection to database
+     *
      * @return Connection object
-    */
+     */
     public static Connection getConnection() {
         try {
             DriverManager.registerDriver(new Driver());

@@ -5,8 +5,8 @@
  */
 package br.edu.qi.gestaohc.controllers;
 
-import br.edu.qi.gestaohc.models.MlCurso;
-import br.edu.qi.gestaohc.objects.Curso;
+import br.edu.qi.gestaohc.dal.DaoCurso;
+import br.edu.qi.gestaohc.model.Curso;
 import br.edu.qi.gestaohc.views.VwCursos;
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ClCurso {
 
     protected Curso curso;
-    protected MlCurso mlCurso;
+    protected DaoCurso mlCurso;
     protected VwCursos vwCurso;
 
     public ClCurso() {
@@ -29,11 +29,11 @@ public class ClCurso {
         this.curso = curso;
     }
 
-    public MlCurso getMlCurso() {
+    public DaoCurso getMlCurso() {
         return mlCurso;
     }
 
-    public void setMlCurso(MlCurso mlCurso) {
+    public void setMlCurso(DaoCurso mlCurso) {
         this.mlCurso = mlCurso;
     }
 

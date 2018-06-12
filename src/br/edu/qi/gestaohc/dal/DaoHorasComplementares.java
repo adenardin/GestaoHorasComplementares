@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.qi.gestaohc.models;
+package br.edu.qi.gestaohc.dal;
 
-import br.edu.qi.gestaohc.objects.HorasComplementares;
+import br.edu.qi.gestaohc.model.HorasComplementares;
 
 /*Modelo para manipulação das "Horas Complementares"*/
-public class MlHorasComplementares {
+public class DaoHorasComplementares {
 
     protected HorasComplementares hc;
 
-    public MlHorasComplementares() {
+    public DaoHorasComplementares() {
 
     }
 

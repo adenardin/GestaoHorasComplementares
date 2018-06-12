@@ -6,7 +6,8 @@
 package br.edu.qi.gestaohc.views;
 
 import br.edu.qi.gestaohc.controllers.ClAluno;
-import br.edu.qi.gestaohc.objects.Aluno;
+import br.edu.qi.gestaohc.model.Aluno;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -260,7 +261,7 @@ public class VwAlunos extends javax.swing.JFrame {
         try {
             cla = new ClAluno();
             cla.gravarAluno(this.receberDadosAluno());   
-        } catch (Exception e) {
+        } catch (SQLException e) {
             this.exibirMensagem(e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed

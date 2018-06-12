@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.qi.gestaohc.models;
+package br.edu.qi.gestaohc.dal;
 
-import br.edu.qi.gestaohc.objects.AtividadeComplementar;
+import br.edu.qi.gestaohc.model.AtividadeComplementar;
 import java.util.ArrayList;
 
 /*Modelo de Manipulação dos Dados da Atividade Complementar*/
-public class MlAtividadeComplementar {
+public class DaoAtividadeComplementar {
 
     private AtividadeComplementar ac;
 
-    public MlAtividadeComplementar() {
+    public DaoAtividadeComplementar() {
 
     }
 

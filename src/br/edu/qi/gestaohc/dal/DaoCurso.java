@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.qi.gestaohc.models;
+package br.edu.qi.gestaohc.dal;
 
-import br.edu.qi.gestaohc.objects.Curso;
+import br.edu.qi.gestaohc.model.Curso;
 import java.util.ArrayList;
 
 /*Modelo para manipular Curso.*/
-public class MlCurso {
+public class DaoCurso {
 
     protected Curso curso;
 
-    public MlCurso() {
+    public DaoCurso() {
 
     }
 

@@ -5,7 +5,7 @@
  */
 package br.edu.qi.gestaohc.views;
 
-import br.edu.qi.gestaohc.objects.Curso;
+import br.edu.qi.gestaohc.model.Curso;
 
 /**
  *

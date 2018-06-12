@@ -5,7 +5,7 @@
  */
 package br.edu.qi.gestaohc.views;
 
-import br.edu.qi.gestaohc.objects.AtividadeComplementar;
+import br.edu.qi.gestaohc.model.AtividadeComplementar;
 
 /**
  *

@@ -3,23 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.qi.gestaohc.objects;
+package br.edu.qi.gestaohc.model;
 
-/*Objeto Aluno*/
-public class Aluno extends Pessoa {
+/**
+ *
+ * @author anderson
+ */
+public class Funcionario extends Pessoa {
 
-    protected Integer ra;
+    protected Integer id;
 
-    public Aluno() {
+    public Funcionario() {
 
     }
 
-    public Integer getRa() {
-        return ra;
+    public Integer getId() {
+        return id;
     }
 
-    public void setRa(Integer ra) {
-        this.ra = ra;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {

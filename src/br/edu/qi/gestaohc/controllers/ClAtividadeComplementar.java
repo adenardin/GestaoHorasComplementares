@@ -5,8 +5,8 @@
  */
 package br.edu.qi.gestaohc.controllers;
 
-import br.edu.qi.gestaohc.models.MlAtividadeComplementar;
-import br.edu.qi.gestaohc.objects.AtividadeComplementar;
+import br.edu.qi.gestaohc.dal.DaoAtividadeComplementar;
+import br.edu.qi.gestaohc.model.AtividadeComplementar;
 import br.edu.qi.gestaohc.views.VwAtividadesComplementares;
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ClAtividadeComplementar {
 
     protected AtividadeComplementar ac;
-    protected MlAtividadeComplementar mlAc;
+    protected DaoAtividadeComplementar mlAc;
     protected VwAtividadesComplementares vwAc;
 
     public ClAtividadeComplementar() {
@@ -29,11 +29,11 @@ public class ClAtividadeComplementar {
         this.ac = ac;
     }
 
-    public MlAtividadeComplementar getMlAc() {
+    public DaoAtividadeComplementar getMlAc() {
         return mlAc;
     }
 
-    public void setMlAc(MlAtividadeComplementar mlAc) {
+    public void setMlAc(DaoAtividadeComplementar mlAc) {
         this.mlAc = mlAc;
     }
 
