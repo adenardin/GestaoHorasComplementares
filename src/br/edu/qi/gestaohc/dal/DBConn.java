@@ -22,7 +22,7 @@ public class DBConn {
     Statement stmt = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
-    Connection conn = getConnection();
+    Connection conn = null;
 
     public static final String URL = "jdbc:mysql://localhost:3306/GestaoHC";
     public static final String USER = "root";

@@ -30,11 +30,10 @@ public class DaoAluno extends DBConn {
     }
 
     public void inserirAluno(Aluno aluno) throws SQLException {
-        try {
-
+        try {            
+            this.conn = DBConn.getConnection();
             this.conn.setAutoCommit(false);
-
-            String query = ("INSERT INTO gestaohc.aluno ("
+            this.pstmt = this.conn.prepareStatement("INSERT INTO gestaohc.aluno ("
                     + "nome, "
                     + "email ,"
                     + "telefone_cel, "
@@ -49,7 +48,6 @@ public class DaoAluno extends DBConn {
                     + "?, "
                     + "?)");
 
-            this.pstmt = this.conn.prepareStatement(query);
             this.pstmt.setString(1, aluno.getNome());
             this.pstmt.setString(2, aluno.getEmail());
             this.pstmt.setString(3, aluno.getTelefone_cel());
