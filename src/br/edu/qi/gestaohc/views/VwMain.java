@@ -75,6 +75,11 @@ public class VwMain extends javax.swing.JFrame {
 
         jMenuItem3.setText("Atividades Complementares");
         jMenuItem3.setActionCommand("mnAtividadesComplementares");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setText("Horas Complementares");
@@ -118,7 +123,9 @@ public class VwMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+           VwCursos VwCursos = new VwCursos();
+           VwCursos.setLocationRelativeTo( null );
+           VwCursos.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -132,6 +139,12 @@ public class VwMain extends javax.swing.JFrame {
            VwAlunos.setVisible(true);
        });
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+           VwAtividadesComplementares VwAtividadesComplementares = new VwAtividadesComplementares();
+           VwAtividadesComplementares.setLocationRelativeTo( null );
+           VwAtividadesComplementares.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
