@@ -5,19 +5,67 @@
  */
 package br.edu.qi.gestaohc.views;
 
+import br.edu.qi.gestaohc.controllers.ClCurso;
+import br.edu.qi.gestaohc.model.Curso;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ALUNOS
  */
 public class VwCursos extends javax.swing.JFrame {
-
+    public Curso curso;
+    public ClCurso clc;
     /**
      * Creates new form VwCursos
      */
-    public VwCursos() {
+    public VwCursos() throws SQLException {
         initComponents();
+        this.listarCursos();
     }
 
+    public Curso receberDadosCurso() {
+        
+//        int ra = Integer.parseInt(this.txtRa.getText());
+        String nome = this.txtNomeCurso.getText();
+        String totalHC = this.txtTotalHC.getText();
+        
+        System.out.println();
+        
+        Curso curso = new Curso();
+        curso.setNome(nome);
+        curso.setTotalHoras(Integer.parseInt(totalHC));
+                
+        return curso;
+    }    
+    
+    public void listarCursos() throws SQLException{
+        clc = new ClCurso();
+        List<Curso> listCurso = clc.listarTodosCursos();
+        
+        DefaultTableModel modelinho = new DefaultTableModel();
+        modelinho.addColumn("Código do Curso");            
+        modelinho.addColumn("Nome do Curso");
+        modelinho.addColumn("Total Horas Comp.");
+                
+        for(Curso curso : listCurso){             
+            modelinho.addRow(new Object[]{
+            curso.getId().toString(),
+            curso.getNome(),
+            curso.getTotalHoras().toString()});
+            jTable1.setModel(modelinho);               
+        }    
+    }    
+    
+    public void exibirMensagem(String msg) {
+        JOptionPane.showMessageDialog(null, msg, "Mensagem!", JOptionPane.DEFAULT_OPTION);
+    }    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,9 +79,9 @@ public class VwCursos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtRa = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtRa1 = new javax.swing.JTextField();
+        txtNomeCurso = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtRa2 = new javax.swing.JTextField();
+        txtTotalHC = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
@@ -58,17 +106,17 @@ public class VwCursos extends javax.swing.JFrame {
 
         jLabel3.setText("Nome do Curso:");
 
-        txtRa1.addActionListener(new java.awt.event.ActionListener() {
+        txtNomeCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRa1ActionPerformed(evt);
+                txtNomeCursoActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Total de Horas Complementares do Curso:");
 
-        txtRa2.addActionListener(new java.awt.event.ActionListener() {
+        txtTotalHC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRa2ActionPerformed(evt);
+                txtTotalHCActionPerformed(evt);
             }
         });
 
@@ -108,7 +156,7 @@ public class VwCursos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtRa1)
+                .addComponent(txtNomeCurso)
                 .addGap(259, 259, 259))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -116,7 +164,7 @@ public class VwCursos extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtRa2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTotalHC, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(297, 297, 297))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -155,19 +203,19 @@ public class VwCursos extends javax.swing.JFrame {
                         .addGap(2, 2, 2)
                         .addComponent(txtRa)))
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(txtRa1)))
+                        .addComponent(txtNomeCurso)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtRa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotalHC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -186,20 +234,27 @@ public class VwCursos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRaActionPerformed
 
-    private void txtRa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRa1ActionPerformed
+    private void txtNomeCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCursoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtRa1ActionPerformed
+    }//GEN-LAST:event_txtNomeCursoActionPerformed
 
-    private void txtRa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRa2ActionPerformed
+    private void txtTotalHCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalHCActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtRa2ActionPerformed
+    }//GEN-LAST:event_txtTotalHCActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        try {
+            clc = new ClCurso();
+            clc.gravarCurso(this.receberDadosCurso());            
+            // Atualizar tabela após inserir.
+            this.listarCursos();
+        } catch (SQLException e) {
+            this.exibirMensagem(e.getMessage());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -232,7 +287,11 @@ public class VwCursos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VwCursos().setVisible(true);
+                try {
+                    new VwCursos().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VwCursos.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -248,8 +307,8 @@ public class VwCursos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtNomeCurso;
     private javax.swing.JTextField txtRa;
-    private javax.swing.JTextField txtRa1;
-    private javax.swing.JTextField txtRa2;
+    private javax.swing.JTextField txtTotalHC;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,7 +8,14 @@ package br.edu.qi.gestaohc.views;
 import br.edu.qi.gestaohc.controllers.ClAluno;
 import br.edu.qi.gestaohc.model.Aluno;
 import java.sql.SQLException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,8 +29,9 @@ public class VwAlunos extends javax.swing.JFrame {
     /**
      * Creates new form VwAluno
      */
-    public VwAlunos() {
+    public VwAlunos() throws SQLException {
         initComponents();
+        this.listarAlunos();
     }
 
     public void criarVwAluno() {
@@ -32,7 +40,7 @@ public class VwAlunos extends javax.swing.JFrame {
 
     public Aluno receberDadosAluno() {
         
-        int ra = Integer.parseInt(this.txtRa.getText());
+//        int ra = Integer.parseInt(this.txtRa.getText());
         String nome = this.txtNome.getText();
         String eMail = this.txtEmail.getText();
         String telCel = this.txtTelCel.getText();
@@ -41,7 +49,7 @@ public class VwAlunos extends javax.swing.JFrame {
         String passWd = new String(this.passWd.getPassword()).trim();
         
         Aluno aluno = new Aluno();
-        aluno.setRa(ra);
+//        aluno.setRa(ra);
         aluno.setNome(nome);
         aluno.setEmail(eMail);
         aluno.setTelefone_cel(telCel);
@@ -52,6 +60,30 @@ public class VwAlunos extends javax.swing.JFrame {
         return aluno;
     }
 
+    public void listarAlunos() throws SQLException{
+        cla = new ClAluno();
+        List<Aluno> listAluno = cla.listarTodosAlunos();
+        
+        DefaultTableModel modelinho = new DefaultTableModel();
+        modelinho.addColumn("RA");            
+        modelinho.addColumn("Nome");
+        modelinho.addColumn("E-Mail");
+        modelinho.addColumn("Telefone Cel");
+        modelinho.addColumn("Telefone Outro");
+        modelinho.addColumn("Login");
+                
+        for(Aluno aluno : listAluno){             
+            modelinho.addRow(new Object[]{
+            aluno.getRa().toString(),
+            aluno.getNome(),
+            aluno.getEmail(),
+            aluno.getTelefone_cel(),
+            aluno.getTelefone_outro(),
+            aluno.getLogin()});
+            jTable1.setModel(modelinho);               
+        }    
+    }
+    
     public void exibirMensagem(String msg) {
         JOptionPane.showMessageDialog(null, msg, "Mensagem!", JOptionPane.DEFAULT_OPTION);
     }
@@ -261,7 +293,9 @@ public class VwAlunos extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             cla = new ClAluno();
-            cla.gravarAluno(this.receberDadosAluno());   
+            cla.gravarAluno(this.receberDadosAluno());            
+            // Atualizar tabela após inserir.
+            this.listarAlunos();
         } catch (SQLException e) {
             this.exibirMensagem(e.getMessage());
         }
@@ -298,7 +332,11 @@ public class VwAlunos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VwAlunos().setVisible(true);
+                try {
+                    new VwAlunos().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VwAlunos.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -33,7 +33,7 @@ public class DaoAluno extends DBConn {
         try {            
             this.conn = DBConn.getConnection();
             this.conn.setAutoCommit(false);
-            this.pstmt = this.conn.prepareStatement("INSERT INTO gestaohc.aluno ("
+            this.pstmt = this.conn.prepareStatement("INSERT INTO aluno ("
                     + "nome, "
                     + "email ,"
                     + "telefone_cel, "
@@ -81,9 +81,36 @@ public class DaoAluno extends DBConn {
 
     }
 
-    public ArrayList selecionarTodosAlunos() {
-        return null;
+    public ArrayList selecionarTodosAlunos() throws SQLException {
+        try {            
+            this.conn = DBConn.getConnection();
+            this.pstmt = this.conn.prepareStatement("SELECT * FROM aluno");
+            this.pstmt.execute();
+            
+            this.rs = this.pstmt.executeQuery();
 
+            ArrayList<Aluno> listAluno = new ArrayList<Aluno>();
+
+            while (this.rs.next()) {
+                Aluno a = new Aluno();                                  
+                a.setRa(this.rs.getInt("ra"));
+                a.setNome(this.rs.getString("nome"));
+                a.setEmail(this.rs.getString("email"));
+                a.setTelefone_cel(this.rs.getString("telefone_cel"));
+                a.setTelefone_outro(this.rs.getString("telefone_outro"));
+                a.setLogin(this.rs.getString("login"));
+
+                listAluno.add(a);
+            }
+
+            return listAluno;
+
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        } finally {
+            this.pstmt.close();
+            this.conn.close();
+        }
     }
 
     public ArrayList selecionarAlunosAtributo(Aluno aluno) {

@@ -8,6 +8,7 @@ package br.edu.qi.gestaohc.controllers;
 import br.edu.qi.gestaohc.dal.DaoAtividadeComplementar;
 import br.edu.qi.gestaohc.model.AtividadeComplementar;
 import br.edu.qi.gestaohc.views.VwAtividadesComplementares;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /*Controlador para Atividade Complementar.*/
@@ -45,8 +46,9 @@ public class ClAtividadeComplementar {
         this.vwAc = vwAc;
     }
 
-    public void gravarAtividadeComplementar(AtividadeComplementar ac) {
-
+    public void gravarAtividadeComplementar(AtividadeComplementar ac) throws SQLException {
+        DaoAtividadeComplementar dac = new DaoAtividadeComplementar();
+        dac.inserirAtividadeComplementar(ac);
     }
 
     public void editarAtividadeComplementar(AtividadeComplementar ac) {
@@ -62,9 +64,9 @@ public class ClAtividadeComplementar {
 
     }
 
-    public ArrayList listarTodasAtividadesComplementares() {
-        return null;
-
+    public ArrayList listarTodasAtividadesComplementares() throws SQLException {
+        DaoAtividadeComplementar dac = new DaoAtividadeComplementar();
+        return dac.selecionarTodasAtividadesComplementares();
     }
 
     /**

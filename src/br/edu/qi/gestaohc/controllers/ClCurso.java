@@ -8,6 +8,7 @@ package br.edu.qi.gestaohc.controllers;
 import br.edu.qi.gestaohc.dal.DaoCurso;
 import br.edu.qi.gestaohc.model.Curso;
 import br.edu.qi.gestaohc.views.VwCursos;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /*Controlador para Curso.*/
@@ -45,8 +46,9 @@ public class ClCurso {
         this.vwCurso = vwCurso;
     }
 
-    public void gravarCurso(Curso curso) {
-
+    public void gravarCurso(Curso curso) throws SQLException {
+        DaoCurso dc = new DaoCurso();
+        dc.inserirCurso(curso);
     }
 
     public void editarCurso(Curso curso) {
@@ -62,9 +64,9 @@ public class ClCurso {
 
     }
 
-    public ArrayList listarTodosCursos() {
-        return null;
-
+    public ArrayList listarTodosCursos() throws SQLException {
+        DaoCurso dc = new DaoCurso();
+        return dc.selecionarTodosCursos();
     }
 
     public ArrayList listarCursosAtributo(Curso curso) {

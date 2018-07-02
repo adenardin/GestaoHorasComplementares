@@ -15,7 +15,7 @@ public class Curso {
 
     protected Integer id;
     protected String nome;
-    protected Date totalHoras;
+    protected Integer totalHoras;
 
     public Curso() {
 
@@ -37,11 +37,11 @@ public class Curso {
         this.nome = nome;
     }
 
-    public Date getTotalHoras() {
+    public Integer getTotalHoras() {
         return totalHoras;
     }
 
-    public void setTotalHoras(Date totalHoras) {
+    public void setTotalHoras(Integer totalHoras) {
         this.totalHoras = totalHoras;
     }
 

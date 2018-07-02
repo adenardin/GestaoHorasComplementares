@@ -5,6 +5,10 @@
  */
 package br.edu.qi.gestaohc.views;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author anderson
@@ -123,9 +127,13 @@ public class VwMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-           VwCursos VwCursos = new VwCursos();
-           VwCursos.setLocationRelativeTo( null );
-           VwCursos.setVisible(true);
+        try {
+            VwCursos VwCursos = new VwCursos();
+            VwCursos.setLocationRelativeTo( null );
+            VwCursos.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(VwMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -134,16 +142,25 @@ public class VwMain extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
        java.awt.EventQueue.invokeLater(() -> {
-           VwAlunos VwAlunos = new VwAlunos();
-           VwAlunos.setLocationRelativeTo( null );
-           VwAlunos.setVisible(true);
+           try {
+               VwAlunos VwAlunos = new VwAlunos();
+               VwAlunos.setLocationRelativeTo( null );
+               VwAlunos.setVisible(true);
+           } catch (SQLException ex) {
+               Logger.getLogger(VwMain.class.getName()).log(Level.SEVERE, null, ex);
+           }
        });
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-           VwAtividadesComplementares VwAtividadesComplementares = new VwAtividadesComplementares();
-           VwAtividadesComplementares.setLocationRelativeTo( null );
-           VwAtividadesComplementares.setVisible(true);
+        try {
+            VwAtividadesComplementares VwAtividadesComplementares = new VwAtividadesComplementares();
+            VwAtividadesComplementares.setLocationRelativeTo( null );
+            VwAtividadesComplementares.setVisible(true);
+            VwAtividadesComplementares.criarVwAtividadesComplementares();
+        } catch (SQLException ex) {
+            Logger.getLogger(VwMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -64,9 +64,9 @@ public class ClAluno {
 
     }
 
-    public ArrayList listarTodosAlunos() {
-        return null;
-
+    public ArrayList listarTodosAlunos() throws SQLException {
+        DaoAluno da = new DaoAluno();
+        return da.selecionarTodosAlunos();
     }
 
     public ArrayList listarAlunosAtributo(Aluno aluno) {
