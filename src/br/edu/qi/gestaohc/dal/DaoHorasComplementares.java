@@ -6,6 +6,7 @@
 package br.edu.qi.gestaohc.dal;
 
 import br.edu.qi.gestaohc.model.HorasComplementares;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -26,8 +27,47 @@ public class DaoHorasComplementares extends DBConn{
         this.hc = hc;
     }
 
-    public void inserirHorasComplementares(HorasComplementares hc) {
+    public void inserirHorasComplementares(HorasComplementares hc) throws SQLException {
+        try {            
+            this.conn = DBConn.getConnection();
+            this.conn.setAutoCommit(false);
+            this.pstmt = this.conn.prepareStatement(
+                " INSERT INTO horas_complementares ("+
+                " aluno_ra, "+
+                " curso_id, "+
+                " atividade_complementar_id, "+
+                " data, "+
+                " descricao, "+
+                " total_horas) "+
+                " VALUES ("+
+                " ?, "+
+                " ?, "+
+                " ?, "+
+                " ?, "+
+                " ?, "+
+                " ?)"
+            );
+            
+            java.sql.Date d = new java.sql.Date (hc.getData().getTime());            
+            
+            this.pstmt.setInt(1, hc.getAluno().getRa());
+            this.pstmt.setInt(2, hc.getCurso().getId());
+            this.pstmt.setInt(3, hc.getAc().getId());
+            this.pstmt.setDate(4, d);
+            this.pstmt.setString(5, hc.getDescricao());
+            this.pstmt.setInt(6, (int) hc.getHora_total());
 
+            this.pstmt.execute();
+            this.conn.commit();
+
+        } catch (SQLException e) {
+            this.conn.rollback();
+            throw new SQLException(e.getMessage());
+        } finally {
+            this.conn.setAutoCommit(true);
+            this.pstmt.close();
+            this.conn.close();
+        }
     }
 
     public void atualizarHorasComplementares(HorasComplementares hc) {

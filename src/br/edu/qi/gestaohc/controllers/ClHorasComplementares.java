@@ -46,8 +46,9 @@ public class ClHorasComplementares {
         this.vwHc = vwHc;
     }
 
-    public void gravarHorasComplementares(HorasComplementares hc) {
-
+    public void gravarHorasComplementares(HorasComplementares hc) throws SQLException {        
+        DaoHorasComplementares dhc = new DaoHorasComplementares();
+        dhc.inserirHorasComplementares(hc);
     }
 
     public void editarHorasComplementares(HorasComplementares hc) {

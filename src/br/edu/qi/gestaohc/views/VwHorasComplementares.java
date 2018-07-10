@@ -14,11 +14,15 @@ import br.edu.qi.gestaohc.model.AtividadeComplementar;
 import br.edu.qi.gestaohc.model.Curso;
 import br.edu.qi.gestaohc.model.HorasComplementares;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -76,13 +80,33 @@ public class VwHorasComplementares extends javax.swing.JFrame {
 
     }
 
-    public HorasComplementares receberHorasComplementares() {
-        return null;
-
-    }
+    public HorasComplementares receberHorasComplementares() throws SQLException, ParseException {
+        
+        String codHC = txtRHC.getText();
+        
+        Aluno aluno = mapAlunos.get(cbxAluno.getSelectedIndex());
+        Curso curso = mapCursos.get(cbxCurso.getSelectedIndex());
+        AtividadeComplementar ativComp = mapAtividades.get(cbxAtividadeComplementar.getSelectedIndex());
+        
+        String dataHC = this.data.getText();
+        String descricao = this.descricao.getText();
+        String totalHC = this.txtLHAC.getText();
+        
+        HorasComplementares horasComplementares = new HorasComplementares();        
+        horasComplementares.setAluno(aluno);
+        horasComplementares.setCurso(curso);
+        horasComplementares.setAc(ativComp);
+        
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        horasComplementares.setData(formato.parse(dataHC));
+        horasComplementares.setDescricao(descricao);
+        horasComplementares.setHora_total(Integer.parseInt(totalHC));
+                
+        return horasComplementares;
+    }  
 
     public void exibirMensagem(String msg) {
-
+        JOptionPane.showMessageDialog(null, msg, "Mensagem!", JOptionPane.DEFAULT_OPTION);
     }
 
     /**
@@ -97,7 +121,7 @@ public class VwHorasComplementares extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtRa = new javax.swing.JTextField();
+        txtRHC = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         cbxCurso = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -112,10 +136,10 @@ public class VwHorasComplementares extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         cbxAtividadeComplementar = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        data = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        descricao = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -127,10 +151,10 @@ public class VwHorasComplementares extends javax.swing.JFrame {
 
         jLabel3.setText("Aluno:");
 
-        txtRa.setEnabled(false);
-        txtRa.addActionListener(new java.awt.event.ActionListener() {
+        txtRHC.setEnabled(false);
+        txtRHC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRaActionPerformed(evt);
+                txtRHCActionPerformed(evt);
             }
         });
 
@@ -188,19 +212,23 @@ public class VwHorasComplementares extends javax.swing.JFrame {
 
         jLabel7.setText("Data da atividade:");
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        jFormattedTextField1.setText("00/00/0000");
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        try {
+            data.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        data.setText("00/00/0000    ");
+        data.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                dataActionPerformed(evt);
             }
         });
 
         jLabel8.setText("Descrição da atividade complementar:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        descricao.setColumns(20);
+        descricao.setRows(5);
+        jScrollPane2.setViewportView(descricao);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -220,7 +248,7 @@ public class VwHorasComplementares extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtRHC, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton4)
                                 .addGap(5, 5, 5)
@@ -245,7 +273,7 @@ public class VwHorasComplementares extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel8))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -260,7 +288,7 @@ public class VwHorasComplementares extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtRa))
+                    .addComponent(txtRHC))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -276,7 +304,7 @@ public class VwHorasComplementares extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -301,9 +329,9 @@ public class VwHorasComplementares extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtRaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRaActionPerformed
+    private void txtRHCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRHCActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtRaActionPerformed
+    }//GEN-LAST:event_txtRHCActionPerformed
 
     private void txtLHACActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLHACActionPerformed
         // TODO add your handling code here:
@@ -314,14 +342,16 @@ public class VwHorasComplementares extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        try {
-//            clhc = new ClHorasComplementar();
-//            clhc.gravarHorasComplementar(this.receberHorasComplementar());
-//            //             Atualizar tabela após inserir.
-//            this.listarAtividadesComplementares();
-//        } catch (SQLException e) {
-//            this.exibirMensagem(e.getMessage());
-//        }
+        try {
+            clhc = new ClHorasComplementares();
+            clhc.gravarHorasComplementares(this.receberHorasComplementares());
+            //             Atualizar tabela após inserir.
+            this.listarHorasComplementares();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbxAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAlunoActionPerformed
@@ -332,9 +362,9 @@ public class VwHorasComplementares extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxAtividadeComplementarActionPerformed
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+    private void dataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_dataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,11 +409,12 @@ public class VwHorasComplementares extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxAluno;
     private javax.swing.JComboBox<String> cbxAtividadeComplementar;
     private javax.swing.JComboBox<String> cbxCurso;
+    private javax.swing.JFormattedTextField data;
+    private javax.swing.JTextArea descricao;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -395,9 +426,8 @@ public class VwHorasComplementares extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtLHAC;
-    private javax.swing.JTextField txtRa;
+    private javax.swing.JTextField txtRHC;
     // End of variables declaration//GEN-END:variables
 
     private void listarHorasComplementares() throws SQLException {
