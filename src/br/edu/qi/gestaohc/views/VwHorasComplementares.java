@@ -5,23 +5,73 @@
  */
 package br.edu.qi.gestaohc.views;
 
+import br.edu.qi.gestaohc.controllers.ClAluno;
+import br.edu.qi.gestaohc.controllers.ClAtividadeComplementar;
+import br.edu.qi.gestaohc.controllers.ClCurso;
+import br.edu.qi.gestaohc.controllers.ClHorasComplementares;
+import br.edu.qi.gestaohc.model.Aluno;
+import br.edu.qi.gestaohc.model.AtividadeComplementar;
+import br.edu.qi.gestaohc.model.Curso;
 import br.edu.qi.gestaohc.model.HorasComplementares;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author anderson
  */
 public class VwHorasComplementares extends javax.swing.JFrame {
-
-    protected HorasComplementares hc;
-
+    
+    private HorasComplementares hc;
+    private ClHorasComplementares clhc;
+    private ClAluno cla = new ClAluno();
+    private ClCurso clc = new ClCurso();
+    private ClAtividadeComplementar clac = new ClAtividadeComplementar();
+    private static Map<Integer, Aluno> mapAlunos = new HashMap<Integer, Aluno>();
+    private static Map<Integer, Curso> mapCursos = new HashMap<Integer, Curso>();
+    private static Map<Integer, AtividadeComplementar> mapAtividades = new HashMap<Integer, AtividadeComplementar>();
+    
     /**
      * Creates new form VwHorasComplementares
      */
-    public VwHorasComplementares() {
+    public VwHorasComplementares() throws SQLException {     
         initComponents();
+        List<Curso> cursos = clc.listarTodosCursos();
+        List<Aluno> alunos = cla.listarTodosAluno();
+        List<AtividadeComplementar> ativComps = clac.listarTodasAtividadeComplementar();
+        this.cbxCurso.removeAll();
+        this.cbxAluno.removeAll();
+        this.cbxAtividadeComplementar.removeAll();
+        
+        // Indexar.
+        int i = 0;
+        for (Aluno aluno : alunos) {
+            this.cbxAluno.addItem(aluno.getRa() + " - " + aluno.getNome());
+            mapAlunos.put(i, aluno);
+            i++;
+        }
+        
+        i = 0;
+        for (AtividadeComplementar ativComp : ativComps) {
+            this.cbxAtividadeComplementar.addItem(ativComp.getId() + " - " + ativComp.getNome());
+            mapAtividades.put(i, ativComp);
+            i++;
+        }
+        
+        i = 0;
+        for (Curso curso : cursos) {
+            this.cbxCurso.addItem(curso.getId() + " - " + curso.getNome());
+            mapCursos.put(i, curso);
+            i++;
+        }
+        this.listarHorasComplementares();
     }
-
+    
     public void criarVwHorasComplementares() {
 
     }
@@ -44,21 +94,247 @@ public class VwHorasComplementares extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtRa = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        cbxCurso = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        txtLHAC = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        cbxAluno = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        cbxAtividadeComplementar = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Registro de Horas Complementares");
+
+        jLabel2.setText("Código RHC:");
+
+        jLabel3.setText("Aluno:");
+
+        txtRa.setEnabled(false);
+        txtRa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRaActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Curso:");
+
+        jLabel5.setText("Total de horas da atividade:");
+
+        txtLHAC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLHACActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton4.setText("Filtrar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Inserir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Atualizar");
+
+        jButton3.setText("Excluir");
+
+        cbxAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxAlunoActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Atividade:");
+
+        cbxAtividadeComplementar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxAtividadeComplementarActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Data da atividade:");
+
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        jFormattedTextField1.setText("00/00/0000");
+        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Descrição da atividade complementar:");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxAtividadeComplementar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtRa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton4)
+                                .addGap(5, 5, 5)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtLHAC, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cbxAluno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cbxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtRa))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxAtividadeComplementar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLHAC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtRaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRaActionPerformed
+
+    private void txtLHACActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLHACActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLHACActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//        try {
+//            clhc = new ClHorasComplementar();
+//            clhc.gravarHorasComplementar(this.receberHorasComplementar());
+//            //             Atualizar tabela após inserir.
+//            this.listarAtividadesComplementares();
+//        } catch (SQLException e) {
+//            this.exibirMensagem(e.getMessage());
+//        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbxAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAlunoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxAlunoActionPerformed
+
+    private void cbxAtividadeComplementarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAtividadeComplementarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxAtividadeComplementarActionPerformed
+
+    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,11 +366,71 @@ public class VwHorasComplementares extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VwHorasComplementares().setVisible(true);
+                try {
+                    new VwHorasComplementares().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VwHorasComplementares.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbxAluno;
+    private javax.swing.JComboBox<String> cbxAtividadeComplementar;
+    private javax.swing.JComboBox<String> cbxCurso;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField txtLHAC;
+    private javax.swing.JTextField txtRa;
     // End of variables declaration//GEN-END:variables
+
+    private void listarHorasComplementares() throws SQLException {
+        clhc = new ClHorasComplementares();
+        List<HorasComplementares> listHorasComplementares = clhc.listarTodasHorasComplementares();        
+        
+        clac = new ClAtividadeComplementar();
+        List<AtividadeComplementar> listAtividadesComplementares = clac.listarTodasAtividadesComplementares();
+        
+        cla = new ClAluno();
+        List<Aluno> listAlunos = cla.listarTodosAlunos();
+
+        clc = new ClCurso();
+        List<Curso> listCurso = clc.listarTodosCursos();
+        
+        DefaultTableModel modelinho = new DefaultTableModel();
+        modelinho.addColumn("Aluno");
+        modelinho.addColumn("Curso");
+        modelinho.addColumn("Atividade");
+        modelinho.addColumn("Data");
+        modelinho.addColumn("Descrição RHC");
+        modelinho.addColumn("Total de Horas");
+
+        for(HorasComplementares hc : listHorasComplementares){             
+            modelinho.addRow(new Object[]{
+                hc.getAluno().getNome(),
+                hc.getCurso().getNome(),
+                hc.getAc().getNome(),
+                hc.getData().toString(),
+                hc.getDescricao(),
+                hc.getHora_total().toString()
+            });            
+            jTable1.setModel(modelinho);               
+        }    
+    }
 }

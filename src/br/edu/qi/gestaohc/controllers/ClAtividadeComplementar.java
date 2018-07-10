@@ -10,6 +10,7 @@ import br.edu.qi.gestaohc.model.AtividadeComplementar;
 import br.edu.qi.gestaohc.views.VwAtividadesComplementares;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /*Controlador para Atividade Complementar.*/
 public class ClAtividadeComplementar {
@@ -74,5 +75,10 @@ public class ClAtividadeComplementar {
     public static ArrayList listarAtividadesComplementaresAtributo(AtividadeComplementar ac) {
         return null;
 
+    }
+
+    public List<AtividadeComplementar> listarTodasAtividadeComplementar() throws SQLException {
+        DaoAtividadeComplementar dac = new DaoAtividadeComplementar();
+        return dac.selecionarTodasAtividadesComplementares();
     }
 }

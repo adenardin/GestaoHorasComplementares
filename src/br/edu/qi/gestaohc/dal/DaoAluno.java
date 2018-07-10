@@ -76,9 +76,25 @@ public class DaoAluno extends DBConn {
 
     }
 
-    public Aluno selecionarAluno(Integer ra) {
+    public Aluno selecionarAluno(Integer ra) throws SQLException {
+        try {            
+            this.conn = DBConn.getConnection();
+            this.pstmt = this.conn.prepareStatement("SELECT * FROM aluno where ra = " + ra);
+            this.pstmt.execute();            
+            this.rs = this.pstmt.executeQuery();
+            while (this.rs.next()) {
+                Aluno a = new Aluno();                                  
+                a.setRa(this.rs.getInt("ra"));
+                a.setNome(this.rs.getString("nome"));
+                return a;                
+            }
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        } finally {
+            this.pstmt.close();
+            this.conn.close();
+        }
         return null;
-
     }
 
     public ArrayList selecionarTodosAlunos() throws SQLException {

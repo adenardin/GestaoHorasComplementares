@@ -8,6 +8,7 @@ package br.edu.qi.gestaohc.dal;
 import br.edu.qi.gestaohc.model.AtividadeComplementar;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /*Modelo de Manipulação dos Dados da Atividade Complementar*/
 public class DaoAtividadeComplementar  extends DBConn{
@@ -64,9 +65,25 @@ public class DaoAtividadeComplementar  extends DBConn{
 
     }
 
-    public AtividadeComplementar selecionarAtividadeComplementar(Integer id) {
+    public AtividadeComplementar selecionarAtividadeComplementar(Integer id) throws SQLException {
+        try {            
+            this.conn = DBConn.getConnection();
+            this.pstmt = this.conn.prepareStatement("SELECT * FROM atividade_complementar where id = " + id);
+            this.pstmt.execute();            
+            this.rs = this.pstmt.executeQuery();
+            while (this.rs.next()) {
+                AtividadeComplementar ac = new AtividadeComplementar();                                  
+                ac.setId(this.rs.getInt("id"));
+                ac.setNome(this.rs.getString("nome"));
+                return ac;                
+            }
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        } finally {
+            this.pstmt.close();
+            this.conn.close();
+        }
         return null;
-
     }
 
     public ArrayList selecionarTodasAtividadesComplementares() throws SQLException {
@@ -101,5 +118,4 @@ public class DaoAtividadeComplementar  extends DBConn{
         return null;
 
     }
-
 }

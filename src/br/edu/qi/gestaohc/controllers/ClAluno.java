@@ -10,6 +10,7 @@ import br.edu.qi.gestaohc.model.Aluno;
 import br.edu.qi.gestaohc.views.VwAlunos;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /*Controlador para Aluno*/
 public class ClAluno {
@@ -72,5 +73,10 @@ public class ClAluno {
     public ArrayList listarAlunosAtributo(Aluno aluno) {
         return null;
 
+    }
+
+    public List<Aluno> listarTodosAluno() throws SQLException {
+        DaoAluno da = new DaoAluno();
+        return da.selecionarTodosAlunos();
     }
 }

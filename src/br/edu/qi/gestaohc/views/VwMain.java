@@ -137,7 +137,14 @@ public class VwMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        try {
+            VwHorasComplementares VwHorasComplementares = new VwHorasComplementares();
+            VwHorasComplementares.setLocationRelativeTo( null );
+            VwHorasComplementares.setVisible(true);
+            VwHorasComplementares.criarVwHorasComplementares();
+        } catch (SQLException ex) {
+            Logger.getLogger(VwMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

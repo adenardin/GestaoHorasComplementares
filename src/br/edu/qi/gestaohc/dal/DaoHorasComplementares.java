@@ -6,9 +6,11 @@
 package br.edu.qi.gestaohc.dal;
 
 import br.edu.qi.gestaohc.model.HorasComplementares;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /*Modelo para manipulação das "Horas Complementares"*/
-public class DaoHorasComplementares {
+public class DaoHorasComplementares extends DBConn{
 
     protected HorasComplementares hc;
 
@@ -41,8 +43,37 @@ public class DaoHorasComplementares {
 
     }
 
-    public void selecionarTodasHorasComplementares() {
+    public ArrayList selecionarTodasHorasComplementares() throws SQLException {
+        try {            
+            this.conn = DBConn.getConnection();
+            this.pstmt = this.conn.prepareStatement("SELECT * FROM horas_complementares");
+            this.pstmt.execute();
+            
+            this.rs = this.pstmt.executeQuery();
+            ArrayList<HorasComplementares> listHorasComplementares = new ArrayList<HorasComplementares>();
+            DaoCurso dc = new DaoCurso();         
+            DaoAluno ac = new DaoAluno();         
+            DaoAtividadeComplementar atComp = new DaoAtividadeComplementar();
 
+            while (this.rs.next()) {
+                HorasComplementares hc = new HorasComplementares();        
+                hc.setAluno(ac.selecionarAluno(this.rs.getInt("aluno_ra")));
+                hc.setCurso(dc.selecionarCurso(this.rs.getInt("curso_id")));                
+                hc.setAc(atComp.selecionarAtividadeComplementar(this.rs.getInt("atividade_complementar_id")));
+                hc.setData(this.rs.getDate("data"));
+                hc.setDescricao(this.rs.getString("descricao"));
+                hc.setHora_total(this.rs.getInt("total_horas"));
+                listHorasComplementares.add(hc);
+            }
+
+            return listHorasComplementares;
+
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        } finally {
+            this.pstmt.close();
+            this.conn.close();
+        }
     }
 
     public void selecionarHorasComplementaresAtributo(HorasComplementares hc) {

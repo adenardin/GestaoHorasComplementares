@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class HorasComplementares {
 
+    private Integer id;
     protected Aluno aluno;
     protected Curso curso;
     protected AtividadeComplementar ac;
@@ -70,6 +71,14 @@ public class HorasComplementares {
 
     public void setHora_total(Number hora_total) {
         this.hora_total = hora_total;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 }

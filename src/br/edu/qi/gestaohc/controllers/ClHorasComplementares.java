@@ -8,6 +8,7 @@ package br.edu.qi.gestaohc.controllers;
 import br.edu.qi.gestaohc.dal.DaoHorasComplementares;
 import br.edu.qi.gestaohc.model.HorasComplementares;
 import br.edu.qi.gestaohc.views.VwHorasComplementares;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /*Controlador para manipular Horas Complementares.*/
@@ -62,9 +63,9 @@ public class ClHorasComplementares {
 
     }
 
-    public ArrayList listarTodasHorasComplementares() {
-        return null;
-
+    public ArrayList listarTodasHorasComplementares() throws SQLException {
+        DaoHorasComplementares dhc = new DaoHorasComplementares();
+        return dhc.selecionarTodasHorasComplementares();
     }
 
     public ArrayList listarHorasComplementaresAtributo(HorasComplementares hc) {
